@@ -311,7 +311,7 @@ BugZhangSetter::BugZhangSetter(QWidget *parent)
 	connect(playerbutton, SIGNAL(clicked()), this, SLOT(SetPlayer()));
 	connect(bombbutton, SIGNAL(clicked()), this, SLOT(SetBomb()));
 	connect(powerbutton, SIGNAL(clicked()), this, SLOT(SetPower()));
-	connect(subpowerbutton, SIGNAL(clicked()), this, SLOT(SetPoint()));
+	connect(subpowerbutton, SIGNAL(clicked()), this, SLOT(SetSubpower()));
 	//connect(maxbutton, SIGNAL(clicked()), this, SLOT(SetMax()));
 
 	//计数器初始化
