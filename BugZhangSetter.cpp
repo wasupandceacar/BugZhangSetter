@@ -34,6 +34,9 @@ void BugZhangSetter::SetData(int choice, int num){
 	int var10 = 2283;
 	int var11 = 186;
 	int max = num * 100;
+	int var12 = 41911311;
+	int var13 = 41059343;
+	int four = 4;
 	switch (choice){
 	case 1:
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CDF4, &num, 4, &dwNumberOfBytesRead);
@@ -123,13 +126,31 @@ void BugZhangSetter::SetData(int choice, int num){
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0040DCD0, &zero, 1, &dwNumberOfBytesRead);
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0040DCAE, &zero, 4, &dwNumberOfBytesRead);
 		break;
-	//修改最大得点
+		//修改最大得点
 	case 13:
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CD90, &eax, 1, &dwNumberOfBytesRead);
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CD91, &max, 4, &dwNumberOfBytesRead);
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CD95, &nop1, 4, &dwNumberOfBytesRead);
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CD99, &nop2, 2, &dwNumberOfBytesRead);
 		WriteProcessMemory(hSnapshot, (LPVOID)0x0042CD9B, &var2, 1, &dwNumberOfBytesRead);
+		break;
+	case 14:
+		WriteProcessMemory(hSnapshot, (LPVOID)0x0044279B, &nop1, 4, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x0044279F, &nop2, 2, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x004427A8, &nop1, 4, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x004427AC, &nop2, 2, &dwNumberOfBytesRead);
+		break;
+	case 15:
+		WriteProcessMemory(hSnapshot, (LPVOID)0x0044279B, &var12, 4, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x0044279F, &zero, 2, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x004427A8, &var13, 4, &dwNumberOfBytesRead);
+		WriteProcessMemory(hSnapshot, (LPVOID)0x004427AC, &zero, 2, &dwNumberOfBytesRead);
+		break;
+	case 16:
+		WriteProcessMemory(hSnapshot, (LPVOID)0x00443FE1, &one, 4, &dwNumberOfBytesRead);
+		break;
+	case 17:
+		WriteProcessMemory(hSnapshot, (LPVOID)0x00443FE1, &four, 4, &dwNumberOfBytesRead);
 		break;
 	}
 }
@@ -167,12 +188,12 @@ void BugZhangSetter::SetSubpower(){
 	}
 }
 /*void BugZhangSetter::SetMax(){
-	if (checkprog()){
-		int data = maxedit->text().toInt();
-		if (data >= 0 && data <= 2147483647){
-			SetData(13, data);
-		}
-	}
+if (checkprog()){
+int data = maxedit->text().toInt();
+if (data >= 0 && data <= 2147483647){
+SetData(13, data);
+}
+}
 }*/
 
 //检查进程
@@ -210,6 +231,18 @@ void BugZhangSetter::checkbox(){
 		else{
 			SetData(9, 0);
 		}
+		if (ABbox->isChecked()){
+			SetData(14, 0);
+		}
+		else{
+			SetData(15, 0);
+		}
+		if (NDbox->isChecked()){
+			SetData(16, 0);
+		}
+		else{
+			SetData(17, 0);
+		}
 		if (bombbox->isChecked()){
 			QString bomb = bombedit->text();
 			if (bomb.length() != 0){
@@ -237,7 +270,8 @@ void BugZhangSetter::checkbox(){
 		else{
 			SetData(12, 0);
 		}
-	}else{
+	}
+	else{
 		this->setWindowTitle("无游戏");
 	}
 }
@@ -253,8 +287,8 @@ BugZhangSetter::BugZhangSetter(QWidget *parent)
 
 	this->setWindowTitle("无游戏");
 	this->setWindowFlags(Qt::WindowCloseButtonHint);
-	this->setFixedSize(205, 120);
-	this->move((width - 205) / 2, (height - 120) / 2);
+	this->setFixedSize(205, 140);
+	this->move((width - 205) / 2, (height - 140) / 2);
 
 	//标签初始化
 	playerlabel = new QLabel("Player：", this);
@@ -306,6 +340,10 @@ BugZhangSetter::BugZhangSetter(QWidget *parent)
 	powerbox->setGeometry(QRect(150, 64, 50, 17));
 	subpowerbox = new QCheckBox("锁定", this);
 	subpowerbox->setGeometry(QRect(150, 89, 50, 17));
+	ABbox = new QCheckBox("自动雷", this);
+	ABbox->setGeometry(QRect(85, 114, 70, 17));
+	NDbox = new QCheckBox("无敌", this);
+	NDbox->setGeometry(QRect(150, 114, 50, 17));
 
 	//设置信号槽
 	connect(playerbutton, SIGNAL(clicked()), this, SLOT(SetPlayer()));
