@@ -42,6 +42,8 @@ public:
 	QCheckBox *bombbox;
 	QCheckBox *powerbox;
 	QCheckBox *subpowerbox;
+	QCheckBox *NDbox;
+	QCheckBox *ABbox;
 
 	private slots:
 	void SetPlayer();
