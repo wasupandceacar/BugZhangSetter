@@ -44,6 +44,7 @@ public:
 	QCheckBox *subpowerbox;
 	QCheckBox *NDbox;
 	QCheckBox *ABbox;
+        QCheckBox *TLbox;
 
 	private slots:
 	void SetPlayer();
@@ -58,7 +59,7 @@ public:
 private:
 	void SetData(int choice, int num);
 
-	//¼ÆÊ±Æ÷
+	//è®¡æ—¶å™¨
 	QTimer *timer;
 };
 
